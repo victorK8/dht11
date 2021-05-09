@@ -1,15 +1,31 @@
-/*  DHT11 Temperature & Humidity Sensor
-*	
-*	Weather Station Project v.01
+/*********************************************
+* DHT11 Software for embedded-linux
 *
-*
-*	By Víctor Malumbres Talles
-*/
+* By Víctor Malumbres - victormalum@gmail.com
+**********************************************/
 
 #include "dht11.h"
 
 
-// Ask for a measure
+/*************************************
+* Temperature variable
+**************************************/
+float temperature;
+
+/*************************************
+* Humidity variable
+**************************************/
+float humidity;
+
+/*************************************
+* Pin conected to data pin of dht11
+**************************************/
+int pin;
+
+
+/*************************************
+* Function to ask a measure to dht11
+**************************************/
 int ask_measure(int pin){
 
 	// wait 1 second
@@ -35,35 +51,48 @@ int ask_measure(int pin){
 	return DHTLIB_OK;
 }
 
-// Set-up
-int dht11::setup(){
+/*************************************
+* Function to setup wiring pi
+**************************************/
+int setup(){
    return wiringPiSetup();
 }
 
-// Set pin
-int dht11::setPin(int number){
+/*************************************
+* Function to setup pinout of dht11
+**************************************/
+int setPin(int number){
    pin = number;
    return 0;
 }
 
-// Get pin
-int dht11::getPin(){
+/*************************************
+* Function to get dht11 data pinout
+**************************************/
+int getPin(){
   return pin;
 }
 
-// Get temp. measure
-float dht11::getTemperature(){
+/***************************************
+* Function to get temperature from dht11
+****************************************/
+float getTemperature(){
   return temperature;
 }
 
-// Get hum. measure
-float dht11::getHumidity(){
+/*************************************
+* Function to get humidity from dht11
+**************************************/
+float getHumidity(){
  return humidity;
 }
 
 
-// Read data from dht11 Sensor
-int dht11::read_dht11()
+/*************************************
+* Function to read data from dht11
+* Version 1.0
+**************************************/
+int read_dht11()
 {
 	// Data format: 8bit integral RH data + 8bit decimal RH data + 8bit integral T data + 8bit decimal T data + 8bit check sum. 
 
@@ -156,8 +185,11 @@ int dht11::read_dht11()
 
 
 
-// Other version for read dht11
-int dht11::read_dht11_v2(){
+/*************************************
+* Function to read data from dht11 
+* Version 2.0
+**************************************/
+int read_dht11_v2(){
 
 	uint8_t laststate= HIGH;
 	uint8_t counter =  0;
